@@ -213,7 +213,7 @@ namespace ProjetoDevWeb_V2.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ProjetoDevWeb_V2.Models.DBModels.Autores", b =>
+            modelBuilder.Entity("ProjetoDevWeb_V2.Models.Media", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -223,40 +223,31 @@ namespace ProjetoDevWeb_V2.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("TipoMedia")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Autores", (string)null);
+                    b.ToTable("Media");
                 });
 
-            modelBuilder.Entity("ProjetoDevWeb_V2.Models.DBModels.Media", b =>
+            modelBuilder.Entity("ProjetoDevWeb_V2.Models.Teste", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("AutorFk")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Descricao")
+                    b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Quantidade")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Tipo")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Titulo")
+                    b.Property<string>("link")
                         .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AutorFk");
-
-                    b.ToTable("Media", (string)null);
+                    b.ToTable("Teste");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -308,17 +299,6 @@ namespace ProjetoDevWeb_V2.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ProjetoDevWeb_V2.Models.DBModels.Media", b =>
-                {
-                    b.HasOne("ProjetoDevWeb_V2.Models.DBModels.Autores", "Nome")
-                        .WithMany()
-                        .HasForeignKey("AutorFk")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Nome");
                 });
 #pragma warning restore 612, 618
         }

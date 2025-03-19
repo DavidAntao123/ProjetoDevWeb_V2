@@ -27,6 +27,10 @@ public class HomeController : Controller
     {
         return View("Media/InserirMedia");
     }
+    public IActionResult Teste()
+    {
+        return View();
+    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
