@@ -27,6 +27,17 @@
       <_ContentIncludedByDefault Remove="Views\CategoriasControler\Details.cshtml" />
       <_ContentIncludedByDefault Remove="Views\CategoriasControler\Edit.cshtml" />
       <_ContentIncludedByDefault Remove="Views\CategoriasControler\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Teste\abc.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Teste\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Teste\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Teste\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Teste\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Teste\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Media\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Media\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Media\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Media\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Media\Index.cshtml" />
     </ItemGroup>
 
 </Project>

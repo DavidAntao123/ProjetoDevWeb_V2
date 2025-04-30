@@ -13,8 +13,13 @@ public class ApplicationDbContext : IdentityDbContext
     {
     }
 
-public DbSet<Teste> Teste{ get; set; } 
 
-public DbSet<Media> Media { get; set; }
+    public DbSet<Autores> Autores { get; set; }
+
+
+    public DbSet<Likes> Likes { get; set; }
+    public DbSet<Medias> Media { get; set; }
+    public DbSet<Musicas> Musicas { get; set; }
+    public DbSet<Users> Users { get; set; }
 
 }
