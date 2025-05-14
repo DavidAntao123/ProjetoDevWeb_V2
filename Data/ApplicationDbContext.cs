@@ -1,4 +1,4 @@
-﻿using ProjetoDevWeb_V2.Models;
+using ProjetoDevWeb_V2.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProjetoDevWeb_V2.Models;
@@ -15,11 +15,19 @@ public class ApplicationDbContext : IdentityDbContext
 
 
     public DbSet<Autores> Autores { get; set; }
+    
+    public DbSet<Generos> Generos { get; set; }
 
 
     public DbSet<Likes> Likes { get; set; }
     public DbSet<Medias> Media { get; set; }
     public DbSet<Musicas> Musicas { get; set; }
+    
+    public DbSet<TipoMedias> TipoMedias { get; set; }
+    
     public DbSet<Users> Users { get; set; }
+
+public DbSet<ProjetoDevWeb_V2.Models.Fotografias> Fotografias { get; set; }
+
 
 }
