@@ -11,11 +11,11 @@ public class Fotografias
     
     [Display(Name = "Nome do Media")]
     [ForeignKey(nameof(Media))]
-    
-    public int MediaId { get; set; }
-    
-    public Medias Media { get; set; }
+    public int MediaFK { get; set; }
+    public Medias Media { get; set; } 
     
     public string Ficheiro { get; set; }
+    
+    public int Publico { get; set; }
 
 }

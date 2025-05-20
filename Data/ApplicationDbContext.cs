@@ -20,7 +20,7 @@ public class ApplicationDbContext : IdentityDbContext
 
 
     public DbSet<Likes> Likes { get; set; }
-    public DbSet<Medias> Media { get; set; }
+    public DbSet<Medias> Medias { get; set; }
     public DbSet<Musicas> Musicas { get; set; }
     
     public DbSet<TipoMedias> TipoMedias { get; set; }

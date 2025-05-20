@@ -49,6 +49,11 @@
       <_ContentIncludedByDefault Remove="Views\Medias\Details.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Medias\Edit.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Medias\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Fotografias\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Fotografias\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Fotografias\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Fotografias\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Fotografias\Index.cshtml" />
     </ItemGroup>
 
     <ItemGroup>
