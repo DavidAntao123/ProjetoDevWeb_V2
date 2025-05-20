@@ -1,0 +1,46 @@
+@model ProjetoDevWeb_V2.Models.Fotografias
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Fotografias</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Descricao" class="control-label"></label>
+                <input asp-for="Descricao" class="form-control" />
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MediaFK" class="control-label"></label>
+                <select asp-for="MediaFK" class="form-control" asp-items="ViewBag.MediaFK"></select>
+                <span asp-validation-for="MediaFK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ficheiro" class="control-label"></label>
+                <input asp-for="Ficheiro" class="form-control" />
+                <span asp-validation-for="Ficheiro" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Publico" class="control-label"></label>
+                <input asp-for="Publico" class="form-control" />
+                <span asp-validation-for="Publico" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
