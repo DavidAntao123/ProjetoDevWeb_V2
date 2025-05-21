@@ -14,6 +14,8 @@ public class Users
     public string Password { get; set; }
     
     public Tipos Tipo { get; set; }
+    
+    
 }
 
 public enum Tipos

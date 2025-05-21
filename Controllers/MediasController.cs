@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using ProjetoDevWeb_V2.Data;
 using ProjetoDevWeb_V2.Models;
 
@@ -22,8 +23,7 @@ namespace ProjetoDevWeb_V2.Controllers
         // GET: Medias
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Medias.
-                Include(m => m.Autor)
+            var applicationDbContext = _context.Medias.Include(m => m.Autor)
                 .Include(m => m.Genero)
                 .Include(m => m.TipoMedia);
             return View(await applicationDbContext.ToListAsync());

@@ -22,11 +22,7 @@
                 <input asp-for="Descricao" class="form-control" />
                 <span asp-validation-for="Descricao" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Idade" class="control-label"></label>
-                <input asp-for="Idade" class="form-control" />
-                <span asp-validation-for="Idade" class="text-danger"></span>
-            </div>
+           
             <div class="form-group">
                 <label asp-for="GeneroFk" class="control-label"></label>
                 <select asp-for="GeneroFk" class ="form-control" asp-items="ViewBag.GeneroFk"></select>

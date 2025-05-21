@@ -54,6 +54,11 @@
       <_ContentIncludedByDefault Remove="Views\Fotografias\Details.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Fotografias\Edit.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Fotografias\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Midades\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Midades\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Midades\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Midades\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Midades\Index.cshtml" />
     </ItemGroup>
 
     <ItemGroup>

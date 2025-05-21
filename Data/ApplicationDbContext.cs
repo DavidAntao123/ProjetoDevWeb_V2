@@ -16,18 +16,21 @@ public class ApplicationDbContext : IdentityDbContext
 
     public DbSet<Autores> Autores { get; set; }
     
+    public DbSet<Fotografias> Fotografias { get; set; }
+    
     public DbSet<Generos> Generos { get; set; }
-
-
+    
     public DbSet<Likes> Likes { get; set; }
     public DbSet<Medias> Medias { get; set; }
+    
+    public DbSet<Midades> MIdade { get; set; }
     public DbSet<Musicas> Musicas { get; set; }
     
     public DbSet<TipoMedias> TipoMedias { get; set; }
     
     public DbSet<Users> Users { get; set; }
 
-public DbSet<ProjetoDevWeb_V2.Models.Fotografias> Fotografias { get; set; }
+
 
 
 }

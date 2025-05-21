@@ -62,22 +62,54 @@ namespace ProjetoDevWeb_V2.Controllers
         {
             bool haImagem = false;
             var nomeImg = "";
-            var media = _context.Medias.FirstOrDefaultAsync(c => c.Id == fotografia.MediaFK);
+            
+            var media = _context.Medias.Where(c => c.Id == fotografia.MediaFK);
+
+            if (!media.Any())
+            {
+                ModelState.AddModelError("MediaFk","Selecione um Media correto");
+            }
+
+            if (fileFoto == null)
+            {
+                ModelState.AddModelError("","Submeta um ficheiro");
+            }
+            
             if (ModelState.IsValid)
             {
                 
-                if (!(fileFoto[0].ContentType == "image/png" || fileFoto[0].ContentType == "image/jpeg"))
+                    if (!(fileFoto[0].ContentType == "image/png" || fileFoto[0].ContentType == "image/jpeg"))
                 {
                     fotografia.Ficheiro = "sad.png";
                 }
                 else
                 {
                     haImagem = true;
+                    
                     Guid g = Guid.NewGuid();
+                    
                     nomeImg = g.ToString();
+                    
                     string extensao = Path.GetExtension(fileFoto[0].FileName).ToLowerInvariant();
+                    
                     nomeImg += extensao;
+                    
                     fotografia.Ficheiro = "imagens/"+nomeImg;
+                }
+
+                if (haImagem)
+                {
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot/imagens");
+
+                    if (!Directory.Exists(filePath))
+                        Directory.CreateDirectory(filePath);
+                    
+                    filePath = Path.Combine(filePath, nomeImg);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await fileFoto[0].CopyToAsync(fileStream);
+                    }
                 }
                 _context.Add(fotografia);
                 await _context.SaveChangesAsync();

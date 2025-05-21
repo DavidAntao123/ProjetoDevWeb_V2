@@ -14,6 +14,13 @@ public class Medias
     // M/6  M/12 ETC.
     public string Idade { get; set; }
     
+    
+    [ForeignKey(nameof(Midade))]
+    public int MidadeFk { get; set; }
+    public Midades Midade { get; set; }
+
+    
+    
     /// <summary>
     /// 
     /// </summary>

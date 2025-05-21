@@ -287,6 +287,23 @@ namespace ProjetoDevWeb_V2.Migrations
                     b.ToTable("Likes");
                 });
 
+            modelBuilder.Entity("ProjetoDevWeb_V2.Models.MIdade", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Idade")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MIdade");
+                });
+
             modelBuilder.Entity("ProjetoDevWeb_V2.Models.Medias", b =>
                 {
                     b.Property<int>("Id")
