@@ -287,23 +287,6 @@ namespace ProjetoDevWeb_V2.Migrations
                     b.ToTable("Likes");
                 });
 
-            modelBuilder.Entity("ProjetoDevWeb_V2.Models.MIdade", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Descricao")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Idade")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MIdade");
-                });
-
             modelBuilder.Entity("ProjetoDevWeb_V2.Models.Medias", b =>
                 {
                     b.Property<int>("Id")
@@ -322,8 +305,8 @@ namespace ProjetoDevWeb_V2.Migrations
                     b.Property<int>("GeneroFk")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Idade")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("MidadeFk")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Temporadas")
                         .HasColumnType("INTEGER");
@@ -340,9 +323,28 @@ namespace ProjetoDevWeb_V2.Migrations
 
                     b.HasIndex("GeneroFk");
 
+                    b.HasIndex("MidadeFk");
+
                     b.HasIndex("TipoMediaFk");
 
                     b.ToTable("Medias");
+                });
+
+            modelBuilder.Entity("ProjetoDevWeb_V2.Models.Midades", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Idade")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Midades");
                 });
 
             modelBuilder.Entity("ProjetoDevWeb_V2.Models.Musicas", b =>
@@ -399,8 +401,8 @@ namespace ProjetoDevWeb_V2.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Tipo")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Role")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -502,6 +504,12 @@ namespace ProjetoDevWeb_V2.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ProjetoDevWeb_V2.Models.Midades", "Midade")
+                        .WithMany("ListaMedias")
+                        .HasForeignKey("MidadeFk")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ProjetoDevWeb_V2.Models.TipoMedias", "TipoMedia")
                         .WithMany()
                         .HasForeignKey("TipoMediaFk")
@@ -511,6 +519,8 @@ namespace ProjetoDevWeb_V2.Migrations
                     b.Navigation("Autor");
 
                     b.Navigation("Genero");
+
+                    b.Navigation("Midade");
 
                     b.Navigation("TipoMedia");
                 });
@@ -524,6 +534,11 @@ namespace ProjetoDevWeb_V2.Migrations
                         .IsRequired();
 
                     b.Navigation("Media");
+                });
+
+            modelBuilder.Entity("ProjetoDevWeb_V2.Models.Midades", b =>
+                {
+                    b.Navigation("ListaMedias");
                 });
 #pragma warning restore 612, 618
         }

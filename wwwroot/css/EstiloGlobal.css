@@ -1,0 +1,25 @@
+html , body
+{
+    background-color: #8332ac;
+}
+
+.bg-dark
+{
+    background-color: #462749 !important;
+}
+
+.text-white
+{
+    text-shadow: 0 0 8px #ffffff60;
+}
+
+.row
+{
+    color: white;
+    font-weight: bold;
+}
+
+tr
+{
+    transition: background 0.3s;
+}

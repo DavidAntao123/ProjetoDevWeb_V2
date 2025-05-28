@@ -3,7 +3,7 @@
 /// <summary>
 /// Users da Aplicação
 /// </summary>
-public class Users
+public class Users 
 {
     public int Id { get; set; }
     
@@ -13,13 +13,8 @@ public class Users
     
     public string Password { get; set; }
     
-    public Tipos Tipo { get; set; }
+    public string Role { get; set; }
     
     
 }
 
-public enum Tipos
-{
-    Admin,
-    User
-}
