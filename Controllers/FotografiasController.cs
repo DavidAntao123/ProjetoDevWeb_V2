@@ -11,6 +11,9 @@ using ProjetoDevWeb_V2.Models;
 
 namespace ProjetoDevWeb_V2.Controllers
 {
+    /// <summary>
+    /// Controller responsável pelas Fotografias
+    /// </summary>
     public class FotografiasController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -64,12 +67,17 @@ namespace ProjetoDevWeb_V2.Controllers
             var nomeImg = "";
             
             var media = _context.Medias.Where(c => c.Id == fotografia.MediaFK);
-
+            
+            //Verifica se o media selecionado existe
+            
             if (!media.Any())
             {
                 ModelState.AddModelError("MediaFk","Selecione um Media correto");
             }
 
+            //Verifica se a foto foi submetida
+    
+            
             if (fileFoto == null)
             {
                 ModelState.AddModelError("","Submeta um ficheiro");
@@ -77,35 +85,48 @@ namespace ProjetoDevWeb_V2.Controllers
             
             if (ModelState.IsValid)
             {
-                
-                    if (!(fileFoto[0].ContentType == "image/png" || fileFoto[0].ContentType == "image/jpeg"))
+                //Verifica se a foto é .png ou .jpeg
+                //se nao um dos dois , ira ser substituido por uma imagem predefinida
+                if (!(fileFoto[0].ContentType == "image/png" || fileFoto[0].ContentType == "image/jpeg"))
                 {
                     fotografia.Ficheiro = "sad.png";
                 }
                 else
                 {
+                    //boolean a indicar que existe uma imagem
                     haImagem = true;
                     
+                    //cria um nome valor aleatorio unico
                     Guid g = Guid.NewGuid();
                     
+                    //converte para o valor aleatorio para o nome da imagem
                     nomeImg = g.ToString();
                     
+                    // guarda a extensao e em minusculas
                     string extensao = Path.GetExtension(fileFoto[0].FileName).ToLowerInvariant();
                     
+                    //combina o guid com a extensao
                     nomeImg += extensao;
                     
+                    //Define o caminho da imagem
                     fotografia.Ficheiro = "imagens/"+nomeImg;
                 }
 
+                //se existe uma imagem
                 if (haImagem)
                 {
+                    
+                    // define o path para o wwwroot
                     var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot/imagens");
-
+                    
+                    //se nao existir a pasta , ira criar
                     if (!Directory.Exists(filePath))
                         Directory.CreateDirectory(filePath);
                     
+                    //adiciona o nome da imagem ao caminho
                     filePath = Path.Combine(filePath, nomeImg);
 
+                    //salva o ficheiro
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await fileFoto[0].CopyToAsync(fileStream);

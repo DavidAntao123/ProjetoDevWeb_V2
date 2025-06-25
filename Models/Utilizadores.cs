@@ -3,17 +3,15 @@
 /// <summary>
 /// Users da Aplicação
 /// </summary>
-public class Users 
+public class Utilizadores 
 {
     public int Id { get; set; }
     
     public string Nome { get; set; }
     
-    public string Email { get; set; }
+    public string? IdentityUserName { get; set; }
     
-    public string Password { get; set; }
-    
-    public string Role { get; set; }
+    public ICollection<Likes> ListaLikes { get; set; }
     
     
 }

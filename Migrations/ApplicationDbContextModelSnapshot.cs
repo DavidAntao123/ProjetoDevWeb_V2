@@ -41,6 +41,14 @@ namespace ProjetoDevWeb_V2.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "a",
+                            Name = "Administrador",
+                            NormalizedName = "ADMINISTRADOR"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -128,6 +136,24 @@ namespace ProjetoDevWeb_V2.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "admin",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "d6af52f7-1a47-4211-9b94-8b3c2fd44755",
+                            Email = "admin@mail.pt",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@MAIL.PT",
+                            NormalizedUserName = "ADMIN@MAIL.PT",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIbg1R5q3/Ex+CXCoEt8aJ2oSjb03npc45NHqFyzCSs0XSvL7tMZmLc3YgpAmo+OsQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "e440e5f3-3b93-4121-a7d2-07741f1f6bff",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@mail.pt"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -190,6 +216,13 @@ namespace ProjetoDevWeb_V2.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "admin",
+                            RoleId = "a"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -220,6 +253,7 @@ namespace ProjetoDevWeb_V2.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -386,27 +420,21 @@ namespace ProjetoDevWeb_V2.Migrations
                     b.ToTable("TipoMedias");
                 });
 
-            modelBuilder.Entity("ProjetoDevWeb_V2.Models.Users", b =>
+            modelBuilder.Entity("ProjetoDevWeb_V2.Models.Utilizadores", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("IdentityUserName")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nome")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Role")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Utilizadores");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -479,15 +507,15 @@ namespace ProjetoDevWeb_V2.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjetoDevWeb_V2.Models.Users", "User")
-                        .WithMany()
+                    b.HasOne("ProjetoDevWeb_V2.Models.Utilizadores", "Utilizadore")
+                        .WithMany("ListaLikes")
                         .HasForeignKey("UserFK")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Media");
 
-                    b.Navigation("User");
+                    b.Navigation("Utilizadore");
                 });
 
             modelBuilder.Entity("ProjetoDevWeb_V2.Models.Medias", b =>
@@ -539,6 +567,11 @@ namespace ProjetoDevWeb_V2.Migrations
             modelBuilder.Entity("ProjetoDevWeb_V2.Models.Midades", b =>
                 {
                     b.Navigation("ListaMedias");
+                });
+
+            modelBuilder.Entity("ProjetoDevWeb_V2.Models.Utilizadores", b =>
+                {
+                    b.Navigation("ListaLikes");
                 });
 #pragma warning restore 612, 618
         }

@@ -23,3 +23,8 @@ tr
 {
     transition: background 0.3s;
 }
+
+thead
+{
+    background-color: #5c3375;
+}

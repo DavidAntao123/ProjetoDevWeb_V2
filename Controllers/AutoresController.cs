@@ -10,6 +10,9 @@ using ProjetoDevWeb_V2.Models;
 
 namespace ProjetoDevWeb_V2.Controllers
 {
+    /// <summary>
+    /// Controller responsável pelos Autores
+    /// </summary>
     public class AutoresController : Controller
     {
         private readonly ApplicationDbContext _context;
