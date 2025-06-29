@@ -1,0 +1,52 @@
+@model ProjetoDevWeb_V2.Models.Utilizadores
+
+@{
+    ViewData["Title"] = "Editar User";
+}
+
+<html style="background-color: #8332ac; color: white; font-weight: bold; min-height: 100vh;">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="css/EstiloGlobal.css" rel="stylesheet"></link>
+</head>
+<body style="background-color: #8332ac;">
+
+<div class="container py-5">
+    <div class="bg-dark rounded-4 shadow p-5" style="background-color: #462749 !important;">
+        <h2 class="text-white mb-4" style="text-shadow: 0 0 8px #ffffff60;">
+            <i class="bi bi-person-gear me-2"></i> Editar User
+        </h2>
+
+        <form asp-action="Edit" class="needs-validation" novalidate>
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="row g-3" style="color: white; font-weight: bold;">
+                <div class="col-md-6">
+                    <label asp-for="Nome" class="form-label">Nome</label>
+                    <input asp-for="Nome" class="form-control" />
+                    <span asp-validation-for="Nome" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="IdentityUserName" class="form-label">IdentityUser</label>
+                    <input asp-for="IdentityUserName" class="form-control" />
+                    <span asp-validation-for="IdentityUserName" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="mt-4 d-flex justify-content-between">
+                <a asp-action="Index" class="btn btn-outline-light">
+                    <i class="bi bi-arrow-left"></i> Voltar
+                </a>
+                <button type="submit" class="btn btn-warning text-dark fw-semibold">
+                    <i class="bi bi-save"></i> Salvar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

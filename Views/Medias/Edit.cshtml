@@ -1,0 +1,89 @@
+@model ProjetoDevWeb_V2.Models.Medias
+
+@{
+    ViewData["Title"] = "Editar Media";
+}
+
+<html style="background-color: #8332ac; color: white; font-weight: bold; min-height: 100vh;">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="css/EstiloGlobal.css" rel="stylesheet"></link>
+
+    </head>
+<body style="background-color: #8332ac;">
+
+    <div class="container py-5">
+        <div class="bg-dark rounded-4 shadow p-5" style="background-color: #462749 !important;">
+            <h2 class="text-white mb-4" style="text-shadow: 0 0 8px #ffffff60;">
+                <i class="bi bi-pencil-square me-2"></i> Editar Media
+            </h2>
+
+            <form asp-action="Edit" class="needs-validation" novalidate>
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="row g-3" style=" color: white; font-weight: bold;">
+                    <div class="col-md-6">
+                        <label asp-for="Titulo" class="form-label">Título</label>
+                        <input asp-for="Titulo" class="form-control" />
+                        <span asp-validation-for="Titulo" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Descricao" class="form-label">Descrição</label>
+                        <input asp-for="Descricao" class="form-control" />
+                        <span asp-validation-for="Descricao" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="MidadeFk" class="form-label">Idade Mínima</label>
+                        <select asp-for="MidadeFk" class="form-select" asp-items="ViewBag.MidadeFk"></select>
+                        <span asp-validation-for="MidadeFk" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="GeneroFk" class="form-label">Género</label>
+                        <select asp-for="GeneroFk" class="form-select" asp-items="ViewBag.GeneroFk"></select>
+                        <span asp-validation-for="GeneroFk" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="TipoMediaFk" class="form-label">Tipo de Media</label>
+                        <select asp-for="TipoMediaFk" class="form-select" asp-items="ViewBag.TipoMediaFk"></select>
+                        <span asp-validation-for="TipoMediaFk" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Temporadas" class="form-label">Temporadas</label>
+                        <input asp-for="Temporadas" class="form-control" />
+                        <span asp-validation-for="Temporadas" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Episodios" class="form-label">Episódios</label>
+                        <input asp-for="Episodios" class="form-control" />
+                        <span asp-validation-for="Episodios" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="AutorFk" class="form-label">Autor</label>
+                        <select asp-for="AutorFk" class="form-select" asp-items="ViewBag.AutorFk"></select>
+                        <span asp-validation-for="AutorFk" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="mt-4 d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-outline-light">
+                        <i class="bi bi-arrow-left"></i> Voltar
+                    </a>
+                    <button type="submit" class="btn btn-warning text-dark fw-semibold">
+                        <i class="bi bi-save"></i> Salvar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
