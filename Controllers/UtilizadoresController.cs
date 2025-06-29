@@ -25,17 +25,8 @@ namespace ProjetoDevWeb_V2.Controllers
             return View(await _context.Utilizadores.ToListAsync());
         }
         
-        // GET: Utilizador nome por identity user
-        [HttpGet]
-
-        public async Task<string> GetUserNomeIdentity()
-        {
-            
-            var email = User.Identity.Name;
-            var userindentity = await _context.Utilizadores.FindAsync(email);
-            return userindentity.ToString();
-
-        }
+       
+ 
         
 
         // GET: Utilizadores/Details/5
@@ -131,15 +122,15 @@ namespace ProjetoDevWeb_V2.Controllers
         }
 
         // GET: Utilizadores/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string? id)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
                 return NotFound();
             }
 
             var utilizadores = await _context.Utilizadores
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(u => u.IdentityUserName == id );
             if (utilizadores == null)
             {
                 return NotFound();
@@ -151,9 +142,10 @@ namespace ProjetoDevWeb_V2.Controllers
         // POST: Utilizadores/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var utilizadores = await _context.Utilizadores.FindAsync(id);
+            var utilizadores = await _context.Utilizadores
+                .FirstOrDefaultAsync(u => u.IdentityUserName == id );   
             if (utilizadores != null)
             {
                 _context.Utilizadores.Remove(utilizadores);

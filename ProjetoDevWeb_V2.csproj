@@ -93,7 +93,6 @@
 
     <ItemGroup>
       <Folder Include="Areas\Identity\Pages\Account\" />
-      <Folder Include="Views\UserMedia\" />
     </ItemGroup>
 
 </Project>

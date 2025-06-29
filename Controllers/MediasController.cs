@@ -33,7 +33,7 @@ namespace ProjetoDevWeb_V2.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> LikeMedia( int MediaFk, string UserFK , string likestatus)
+        public async Task<IActionResult> LikeMedia( int MediaFk, string UserFK)
         {
             try
             {

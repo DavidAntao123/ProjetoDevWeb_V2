@@ -1,7 +1,22 @@
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ProjetoDevWeb_V2.Models.Fotografias
 
 @{
     ViewData["Title"] = "Detalhes Foto";
+}
+
+@{
+
+    if (@User.FindFirst(ClaimTypes.NameIdentifier)?.Value != "admin")
+    {
+
+        <script>
+            window.location.href = '@Url.Action("Index", "Home")';
+
+        </script>
+
+    }
 }
 
 <html style="background-color: #8332ac; color: white; font-weight: bold; min-height: 100vh;">

@@ -2,10 +2,19 @@
 
 public class TipoMedias
 {
+    /// <summary>
+    /// Identificador do tipo de media
+    /// </summary>
     public int Id { get; set; }
     
+    /// <summary>
+    /// nome do tipo de media
+    /// </summary>
     public string Nome { get; set; }
     
+    /// <summary>
+    /// descrição do tipo de media
+    /// </summary>
     public string Descricao { get; set; }
     
 }
