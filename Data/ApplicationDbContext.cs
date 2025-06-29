@@ -55,7 +55,7 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Generos> Generos { get; set; }
     
     public DbSet<Likes> Likes { get; set; }
-    
+
     public DbSet<Medias> Medias { get; set; }
     
     public DbSet<Midades> Midades { get; set; }

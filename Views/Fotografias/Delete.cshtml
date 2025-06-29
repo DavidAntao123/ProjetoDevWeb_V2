@@ -1,45 +1,66 @@
 @model ProjetoDevWeb_V2.Models.Fotografias
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Remover Foto";
 }
 
-<h1>Delete</h1>
+<html style="background-color: #8332ac; color: white; font-weight: bold; min-height: 100vh;">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="css/EstiloGlobal.css" rel="stylesheet" />
+</head>
+<body style="background-color: #8332ac;">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Fotografias</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descricao)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descricao)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Media)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Media.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Ficheiro)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Ficheiro)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Publico)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Publico)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+<div class="container py-5">
+    <div class="bg-dark rounded-4 shadow p-5" style="background-color: #462749 !important;">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="text-white display-6" style="text-shadow: 0 0 8px #ffffff60;">
+                <i class="bi bi-trash3-fill me-2"></i> Confirmar 
+            </h2>
+            <a asp-action="Index" class="btn btn-outline-light btn-lg shadow-sm">
+                <i class="bi bi-arrow-left-circle me-1"></i> Voltar
+            </a>
+        </div>
+
+        <h5 class="text-danger mb-4">De certeza que é para apagar esta Foto?</h5>
+
+        <dl class="row text-white fs-5 mt-4">
+            <dt class="col-sm-3">Descrição</dt>
+            <dd class="col-sm-9">@Model.Descricao</dd>
+
+            <dt class="col-sm-3">Media</dt>
+            <dd class="col-sm-9">@Model.Media?.Titulo</dd>
+
+            <dt class="col-sm-3">Imagem</dt>
+            <dd class="col-sm-9">
+                @if (!string.IsNullOrEmpty(Model.Ficheiro))
+                {
+                    <img src="@Model.Ficheiro" style="max-width: 300px; max-height: 200px; border-radius: 4px;" class="img-thumbnail" />
+                }
+                else
+                {
+                    <span>Não existe imagem</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3">Público</dt>
+            <dd class="col-sm-9">@Model.Publico</dd>
+        </dl>
+
+        <form asp-action="Delete" class="mt-4">
+            <input type="hidden" asp-for="Id" />
+            <div class="d-flex justify-content-end gap-3">
+                <button type="submit" class="btn btn-danger btn-lg">
+                    <i class="bi bi-trash-fill me-1"></i> Remover
+                </button>
+                <a asp-action="Index" class="btn btn-outline-light btn-lg">
+                    <i class="bi bi-x-circle me-1"></i> Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
 </div>
+
+</body>
+</html>

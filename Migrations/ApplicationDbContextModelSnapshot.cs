@@ -142,15 +142,15 @@ namespace ProjetoDevWeb_V2.Migrations
                         {
                             Id = "admin",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d6af52f7-1a47-4211-9b94-8b3c2fd44755",
+                            ConcurrencyStamp = "922b13d4-21c9-4298-9e60-811c1a3abaa5",
                             Email = "admin@mail.pt",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.PT",
                             NormalizedUserName = "ADMIN@MAIL.PT",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIbg1R5q3/Ex+CXCoEt8aJ2oSjb03npc45NHqFyzCSs0XSvL7tMZmLc3YgpAmo+OsQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEO7MeQlaUn/txE7nuPM1Z1YiGSilkPLx0H/qDeB2M/zFeIE4Bm1SM/advn6hl7kSvw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e440e5f3-3b93-4121-a7d2-07741f1f6bff",
+                            SecurityStamp = "d03264e3-8432-4a1f-985e-ede8aa19f42e",
                             TwoFactorEnabled = false,
                             UserName = "admin@mail.pt"
                         });
@@ -305,8 +305,8 @@ namespace ProjetoDevWeb_V2.Migrations
 
             modelBuilder.Entity("ProjetoDevWeb_V2.Models.Likes", b =>
                 {
-                    b.Property<int>("UserFK")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("UserFK")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("MediaFK")
                         .HasColumnType("INTEGER");
@@ -422,17 +422,16 @@ namespace ProjetoDevWeb_V2.Migrations
 
             modelBuilder.Entity("ProjetoDevWeb_V2.Models.Utilizadores", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("IdentityUserName")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Nome")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdentityUserName");
 
                     b.ToTable("Utilizadores");
                 });
@@ -491,7 +490,7 @@ namespace ProjetoDevWeb_V2.Migrations
             modelBuilder.Entity("ProjetoDevWeb_V2.Models.Fotografias", b =>
                 {
                     b.HasOne("ProjetoDevWeb_V2.Models.Medias", "Media")
-                        .WithMany()
+                        .WithMany("Fotos")
                         .HasForeignKey("MediaFK")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -507,7 +506,7 @@ namespace ProjetoDevWeb_V2.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjetoDevWeb_V2.Models.Utilizadores", "Utilizadore")
+                    b.HasOne("ProjetoDevWeb_V2.Models.Utilizadores", "Utilizador")
                         .WithMany("ListaLikes")
                         .HasForeignKey("UserFK")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -515,7 +514,7 @@ namespace ProjetoDevWeb_V2.Migrations
 
                     b.Navigation("Media");
 
-                    b.Navigation("Utilizadore");
+                    b.Navigation("Utilizador");
                 });
 
             modelBuilder.Entity("ProjetoDevWeb_V2.Models.Medias", b =>
@@ -562,6 +561,11 @@ namespace ProjetoDevWeb_V2.Migrations
                         .IsRequired();
 
                     b.Navigation("Media");
+                });
+
+            modelBuilder.Entity("ProjetoDevWeb_V2.Models.Medias", b =>
+                {
+                    b.Navigation("Fotos");
                 });
 
             modelBuilder.Entity("ProjetoDevWeb_V2.Models.Midades", b =>

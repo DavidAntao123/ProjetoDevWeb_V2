@@ -18,9 +18,9 @@ public class Likes
     /// <summary>
     /// Fk para referenciar o utilizador que gosta da fotografia
     /// </summary>
-    [ForeignKey(nameof(Utilizadore))]
-    public int UserFK { get; set; }
-    public Utilizadores Utilizadore { get; set; }
+    [ForeignKey(nameof(Utilizador))]
+    public string UserFK { get; set; }
+    public Utilizadores Utilizador { get; set; }
     
     /// <summary>
     /// Fk para referenciar o media

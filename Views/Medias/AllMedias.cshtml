@@ -1,5 +1,10 @@
-﻿@model ProjetoDevWeb_V2.ViewModels.MediaFotografias
-@model ProjetoDevWeb_V2.Models.
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model ProjetoDevWeb_V2.ViewModels.MediaFotografias_Likes
+
+@{
+    ViewData["Title"] = "Medias!";
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +16,10 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ 
     <style>
+
+
         .media-card {
             transition: all 0.3s ease;
             margin-bottom: 30px;
@@ -61,11 +69,11 @@
 <body>
 <div class="container py-5">
     <div class="page-header">
-        <h1 class="display-4 text-center">Todos so Medias !</h1>
+        <h1 class="display-4 text-center">Todos os Medias !</h1>
     </div>
     <p>
         <a class="btn btn-primary filter-btn" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false">
-            Acao
+            Ação
         </a>
         <a class="btn btn-primary filter-btn" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false">
             Aventura
@@ -85,11 +93,13 @@
 
     </p>
 
-    <div id="selectedFilter" class="alert alert-info mt-3">Selected: None</div>
+    <div id="selectedFilter" class="alert alert-info mt-3">Nenhum Selecionado</div>
 
 
     <div class="collapse" id="collapseExample">
         <div class="row">
+         
+          
             @foreach (var media in Model.Medias)
             {
                 var relatedFotos = Model.Fotografias
@@ -97,13 +107,15 @@
                     .OrderBy(f => Guid.NewGuid())
                     .Take(5)
                     .ToList();
+                
 
 
-                <div  class="col-lg-6 mb-4 genero'@media.GeneroFk'" style="display: block" >
+
+                <div class="col-lg-6 mb-4 genero'@media.GeneroFk'" style="display: block">
                     <div class="media-card h-100">
                         <div class="media-header">
                             <h3 class="h4">@media.Titulo</h3>
-                            
+
                         </div>
 
                         @if (relatedFotos.Any())
@@ -115,13 +127,6 @@
 
                         <div class="media-body">
                             <p class="text-muted">@media.Descricao</p>
-                            <div>
-                                @{
-                                    var user  = Model
-                                        .Where(u => u.)
-                                      
-                                }
-                            </div>
                             <div class="d-flex flex-wrap">
                                 @foreach (var foto in relatedFotos)
                                 {
@@ -132,16 +137,33 @@
                                          title="@foto.Descricao">
                                 }
                             </div>
-                            <form method="post" action="">
-                                <button type="submit">
-                                    <i class="fa-regular fa-thumbs-up fa-2xl" onclick="like(this)"></i>
-                                </button>
-                            </form>
+                                    <form asp-controller="Medias" asp-action="LikeMedia" method="post">
+
+                                        <input type="hidden" name="MediaFk" value="@media.Id"/>
+                                        <input type="hidden" name="UserFk" value="@User.Identity.Name"/>
+                                        <input id="likestatus" type="hidden" name="likestatus" value="notliked"/>
+
+                                        
+
+                                        <button type="submit">
+                                            @if (Model.LikesList.Contains(media.Id))
+                                            {
+                                                <i class="fa-solid fa-thumbs-up fa-2xl" onclick="like(this)"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa-regular fa-thumbs-up fa-2xl" onclick="like(this)"></i>
+                                            }
+                                        </button>
+                                    </form>
+                               
+                               
+                                
                         </div>
                     </div>
                 </div>
 
-               
+
             }
         </div>
 
@@ -163,7 +185,13 @@
             //vai buscar o div que tem a animacao de collapse
             const collapseDiv = document.getElementById('collapseExample');
             collapseDiv.className = 'collapse';
+
+
+            const statusLike = document.getElementById('likestatus');
             
+
+
+
             //div com o index do genero selecionado
             var selectedText =   $(this).index()+1;
             $("#selectedFilter").text(selectedText);
@@ -186,6 +214,7 @@
                 console.log("div_class_get : " +div_class_get[i]);
                 var div_atual_todos =  div_class_get[i];
 
+                statusLike.value = "notLiked"
                 div_atual_todos.style.display = "none";
             }
 
@@ -205,6 +234,7 @@
                 console.log(div_genero_get[i]);
                 var div_filtrado =  div_genero_get[i];
 
+                statusLike.value = "Liked";
 
                 div_filtrado.style.display = "block";
             }

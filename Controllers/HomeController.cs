@@ -26,7 +26,7 @@ public class HomeController : Controller
     {
         
         //instancia do objeto MediaFotografias 
-        var viewModel = new MediaFotografias()
+        var viewModel = new MediaFotografias_Likes()
         {
             // guarda todos os medias que existem
             Medias = _context.Medias.Include(m => m.Fotos).ToList(),

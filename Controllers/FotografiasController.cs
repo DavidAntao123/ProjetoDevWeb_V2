@@ -153,7 +153,7 @@ namespace ProjetoDevWeb_V2.Controllers
             {
                 return NotFound();
             }
-            ViewData["MediaFK"] = new SelectList(_context.Medias, "Id", "Id", fotografias.MediaFK);
+            ViewData["MediaFK"] = new SelectList(_context.Medias, "Id", "Titulo", fotografias.MediaFK);
             return View(fotografias);
         }
 
