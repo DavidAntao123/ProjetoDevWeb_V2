@@ -36,12 +36,7 @@ public class HomeController : Controller
       //retorna o view model com os medias e as fotos
      return View(viewModel);
     }
-
-
-    public IActionResult InserirMedia()
-    {
-        return View("Media/InserirMedia");
-    }
+    
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

@@ -13,6 +13,7 @@
 
     <ItemGroup>
         <PackageReference Include="MailKit" Version="4.13.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.13" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.13" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.13" />
@@ -21,6 +22,7 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.13" />
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
         <PackageReference Include="MimeKit" Version="4.13.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -94,5 +96,9 @@
     <ItemGroup>
       <Folder Include="Areas\Identity\Pages\Account\" />
     </ItemGroup>
-
+    <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <DocumentationFile>bin\Debug\net8.0\ProjetoDevWeb_V2.xml</DocumentationFile>
+        <NoWarn>1591</NoWarn>
+    </PropertyGroup>
 </Project>

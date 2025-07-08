@@ -9,4 +9,7 @@ public class MediaFotografias_Likes
     
     public List<int> LikesList { get; set; }
     
+    public Dictionary<int, int> LikeCounts { get; set; }
+
+    
 }

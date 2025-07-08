@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -21,10 +23,18 @@ namespace ProjetoDevWeb_V2.Controllers
         {
             _context = context;
         }
+        
+        // GET: Autores
+        public async Task<IActionResult> AllAutores()
+        {
+            
+            return View(await _context.Autores.ToListAsync());
+        }
 
         // GET: Autores
         public async Task<IActionResult> Index()
         {
+            
             return View(await _context.Autores.ToListAsync());
         }
 
@@ -47,8 +57,15 @@ namespace ProjetoDevWeb_V2.Controllers
         }
 
         // GET: Autores/Create
+        [Authorize]
         public IActionResult Create()
         {
+            var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (Userrole != "admin")
+            {
+                return RedirectToAction("Index","Autores"); 
+            }
             return View();
         }
 
@@ -69,8 +86,15 @@ namespace ProjetoDevWeb_V2.Controllers
         }
 
         // GET: Autores/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
+            var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (Userrole != "admin")
+            {
+                return RedirectToAction("Index","Autores"); 
+            }
             if (id == null)
             {
                 return NotFound();
@@ -120,8 +144,15 @@ namespace ProjetoDevWeb_V2.Controllers
         }
 
         // GET: Autores/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
+            var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (Userrole != "admin")
+            {
+                return RedirectToAction("Index","Autores"); 
+            }
             if (id == null)
             {
                 return NotFound();

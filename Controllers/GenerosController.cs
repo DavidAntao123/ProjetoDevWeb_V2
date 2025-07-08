@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,7 @@ using ProjetoDevWeb_V2.Models;
 
 namespace ProjetoDevWeb_V2.Controllers
 {
+    [Authorize]
     public class GenerosController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -17,17 +20,31 @@ namespace ProjetoDevWeb_V2.Controllers
         public GenerosController(ApplicationDbContext context)
         {
             _context = context;
+
         }
 
         // GET: Generos
         public async Task<IActionResult> Index()
         {
+            var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (Userrole != "admin")
+            {
+                return RedirectToAction("Index","Home"); 
+            }
             return View(await _context.Generos.ToListAsync());
         }
 
         // GET: Generos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (Userrole != "admin")
+            {
+                return RedirectToAction("Index","Home"); 
+            }
+            
             if (id == null)
             {
                 return NotFound();
@@ -46,6 +63,12 @@ namespace ProjetoDevWeb_V2.Controllers
         // GET: Generos/Create
         public IActionResult Create()
         {
+            var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (Userrole != "admin")
+            {
+                return RedirectToAction("Index","Home"); 
+            }
             return View();
         }
 
@@ -68,6 +91,13 @@ namespace ProjetoDevWeb_V2.Controllers
         // GET: Generos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (Userrole != "admin")
+            {
+                return RedirectToAction("Index","Home"); 
+            }
+            
             if (id == null)
             {
                 return NotFound();
@@ -119,6 +149,12 @@ namespace ProjetoDevWeb_V2.Controllers
         // GET: Generos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (Userrole != "admin")
+            {
+                return RedirectToAction("Index","Home"); 
+            }
+            
             if (id == null)
             {
                 return NotFound();

@@ -155,10 +155,15 @@
                                                 <i class="fa-regular fa-thumbs-up fa-2xl" onclick="like(this)"></i>
                                             }
                                         </button>
+                                        <span>@(Model.LikeCounts.ContainsKey(media.Id) ? Model.LikeCounts[media.Id] : 0)</span>
+
                                     </form>
-                               
-                               
-                                
+                            <a asp-controller="Medias" asp-action="Details" asp-route-id="@media.Id" class="btn btn-link">
+                                <i class="fa-solid fa-info-circle fa-2xl"></i>
+                            </a>
+
+
+
                         </div>
                     </div>
                 </div>
@@ -185,13 +190,7 @@
             //vai buscar o div que tem a animacao de collapse
             const collapseDiv = document.getElementById('collapseExample');
             collapseDiv.className = 'collapse';
-
-
-            const statusLike = document.getElementById('likestatus');
             
-
-
-
             //div com o index do genero selecionado
             var selectedText =   $(this).index()+1;
             $("#selectedFilter").text(selectedText);
@@ -214,7 +213,6 @@
                 console.log("div_class_get : " +div_class_get[i]);
                 var div_atual_todos =  div_class_get[i];
 
-                statusLike.value = "notLiked"
                 div_atual_todos.style.display = "none";
             }
 
@@ -234,7 +232,6 @@
                 console.log(div_genero_get[i]);
                 var div_filtrado =  div_genero_get[i];
 
-                statusLike.value = "Liked";
 
                 div_filtrado.style.display = "block";
             }

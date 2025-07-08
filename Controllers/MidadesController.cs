@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,8 @@ using ProjetoDevWeb_V2.Models;
 
 namespace ProjetoDevWeb_V2.Controllers
 {
+    
+    [Authorize]
     public class MidadesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,12 +26,24 @@ namespace ProjetoDevWeb_V2.Controllers
         // GET: Midades
         public async Task<IActionResult> Index()
         {
+            var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (Userrole != "admin")
+            {
+                return RedirectToAction("Index","Home"); 
+            }
             return View(await _context.Midades.ToListAsync());
         }
 
         // GET: Midades/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (Userrole != "admin")
+            {
+                return RedirectToAction("Index","Home"); 
+            }
             if (id == null)
             {
                 return NotFound();
@@ -46,6 +62,12 @@ namespace ProjetoDevWeb_V2.Controllers
         // GET: Midades/Create
         public IActionResult Create()
         {
+            var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (Userrole != "admin")
+            {
+                return RedirectToAction("Index","Home"); 
+            }
             return View();
         }
 
@@ -68,6 +90,12 @@ namespace ProjetoDevWeb_V2.Controllers
         // GET: Midades/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (Userrole != "admin")
+            {
+                return RedirectToAction("Index","Home"); 
+            }
             if (id == null)
             {
                 return NotFound();
@@ -119,6 +147,12 @@ namespace ProjetoDevWeb_V2.Controllers
         // GET: Midades/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (Userrole != "admin")
+            {
+                return RedirectToAction("Index","Home"); 
+            }
             if (id == null)
             {
                 return NotFound();

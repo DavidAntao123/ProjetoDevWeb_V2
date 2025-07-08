@@ -1,13 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ProjetoDevWeb_V2.Data;
 using ProjetoDevWeb_V2.Models;
+
+
+
 
 namespace ProjetoDevWeb_V2.Controllers
 {
@@ -50,8 +55,15 @@ namespace ProjetoDevWeb_V2.Controllers
         }
 
         // GET: Fotografias/Create
+        [Authorize]
         public IActionResult Create()
         {
+            var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (Userrole != "admin")
+            {
+                return RedirectToAction("Index","Fotografias"); 
+            }
             ViewData["MediaFK"] = new SelectList(_context.Medias, "Id", "Titulo");
             return View();
         }
@@ -141,8 +153,15 @@ namespace ProjetoDevWeb_V2.Controllers
         }
 
         // GET: Fotografias/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
+            var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (Userrole != "admin")
+            {
+                return RedirectToAction("Index","Fotografias"); 
+            }
             if (id == null)
             {
                 return NotFound();
@@ -196,8 +215,16 @@ namespace ProjetoDevWeb_V2.Controllers
         }
 
         // GET: Fotografias/Delete/5
+        [Authorize]
+
         public async Task<IActionResult> Delete(int? id)
         {
+            var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (Userrole != "admin")
+            {
+                return RedirectToAction("Index","Fotografias"); 
+            }
             if (id == null)
             {
                 return NotFound();

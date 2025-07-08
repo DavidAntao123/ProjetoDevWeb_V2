@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,7 @@ using ProjetoDevWeb_V2.Models;
 
 namespace ProjetoDevWeb_V2.Controllers
 {
+    
     public class MusicasController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -46,8 +49,16 @@ namespace ProjetoDevWeb_V2.Controllers
         }
 
         // GET: Musicas/Create
+        
+        [Authorize]
         public IActionResult Create()
         {
+            var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (Userrole != "admin")
+            {
+                return RedirectToAction("Index","Home"); 
+            }
             ViewData["MediaFK"] = new SelectList(_context.Medias, "Id", "Titulo");
             return View();
         }
@@ -70,8 +81,15 @@ namespace ProjetoDevWeb_V2.Controllers
         }
 
         // GET: Musicas/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
+            var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (Userrole != "admin")
+            {
+                return RedirectToAction("Index","Home"); 
+            }
             if (id == null)
             {
                 return NotFound();
@@ -123,8 +141,15 @@ namespace ProjetoDevWeb_V2.Controllers
         }
 
         // GET: Musicas/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
+            var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (Userrole != "admin")
+            {
+                return RedirectToAction("Index","Home"); 
+            }
             if (id == null)
             {
                 return NotFound();

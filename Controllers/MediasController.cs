@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,8 +21,15 @@ namespace ProjetoDevWeb_V2.Controllers
         }
    
         // GET: Medias
+        [Authorize]
         public async Task<IActionResult> Index()
         {
+            var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (Userrole != "admin")
+            {
+                return RedirectToAction("Index","Home"); 
+            }
             var applicationDbContext = _context.Medias.Include(m => m.Autor)
                 .Include(m => m.Genero)
                 .Include(m => m.TipoMedia)
@@ -51,7 +59,6 @@ namespace ProjetoDevWeb_V2.Controllers
                 {
                     return RedirectToAction(nameof(AllMedias),"Medias");
                 }
-                Console.WriteLine("entrei fixe");
                 Console.WriteLine(UserFK);
                 Console.WriteLine(MediaFk);
 
@@ -125,6 +132,10 @@ namespace ProjetoDevWeb_V2.Controllers
                 .Select(l => l.MediaFK)
                 .ToListAsync();
             
+            var likeCount = await _context.Likes
+                .GroupBy(l => l.MediaFK)
+                .Select(g => new { MediaFk = g.Key, Count = g.Count() })
+                .ToDictionaryAsync(x => x.MediaFk, x => x.Count);
             
             //instancia do objeto MediaFotografias 
             var viewModel = new MediaFotografias_Likes
@@ -134,7 +145,10 @@ namespace ProjetoDevWeb_V2.Controllers
                 // guarda todos as fotos que existem
                 Fotografias = fotografias, 
                 
-                LikesList = userLikes
+                LikesList = userLikes,
+                
+                LikeCounts  = likeCount
+                
             };
 
             return View("AllMedias", viewModel);
@@ -165,8 +179,15 @@ namespace ProjetoDevWeb_V2.Controllers
         }
 
         // GET: Medias/Create
+        [Authorize]
         public IActionResult Create()
         {
+            var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (Userrole != "admin")
+            {
+                return RedirectToAction("Index","Home"); 
+            }
             ViewData["AutorFk"] = new SelectList(_context.Autores, "Id", "Nome");
             ViewData["GeneroFk"] = new SelectList(_context.Generos, "Id", "Nome");
             ViewData["TipoMediaFk"] = new SelectList(_context.TipoMedias, "Id", "Nome");
@@ -196,8 +217,15 @@ namespace ProjetoDevWeb_V2.Controllers
         }
 
         // GET: Medias/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
+            var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (Userrole != "admin")
+            {
+                return RedirectToAction("Index","Home"); 
+            }
             if (id == null)
             {
                 return NotFound();
@@ -254,6 +282,7 @@ namespace ProjetoDevWeb_V2.Controllers
         }
 
         // GET: Medias/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
