@@ -46,8 +46,10 @@ namespace ProjetoDevWeb_V2.Controllers
                 return NotFound();
             }
 
+            
             var autores = await _context.Autores
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(a => a.ListaMedias)  
+                .FirstOrDefaultAsync(a => a.Id == id);
             if (autores == null)
             {
                 return NotFound();

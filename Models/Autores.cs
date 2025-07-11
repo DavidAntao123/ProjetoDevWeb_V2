@@ -20,4 +20,6 @@ public class Autores
     [Required(ErrorMessage = "O {0} é de preenchimento obrigatório.")] 
     public string Nome { get; set; }
 
+    public ICollection<Medias> ListaMedias { get; set; } = new List<Medias>();
+
 }

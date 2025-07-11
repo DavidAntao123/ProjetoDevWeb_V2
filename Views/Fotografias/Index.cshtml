@@ -20,9 +20,12 @@
             <h2 class="text-white display-6" style="text-shadow: 0 0 8px #ffffff60;">
                 <i class="bi bi-images me-2"></i> Lista de Fotos
             </h2>
-            <a asp-action="Create" class="btn btn-outline-light btn-lg shadow-sm">
-                <i class="bi bi-plus-circle me-1"></i> Adicionar Foto
-            </a>
+            @if (@User.FindFirst(ClaimTypes.NameIdentifier)?.Value == "admin")
+            {
+                <a asp-action="Create" class="btn btn-outline-light btn-lg shadow-sm">
+                    <i class="bi bi-plus-circle me-1"></i> Adicionar Foto
+                </a>
+            }
         </div>
 
         <div class="table-responsive">
@@ -32,7 +35,10 @@
                     <th>@Html.DisplayNameFor(model => model.Descricao)</th>
                     <th>@Html.DisplayNameFor(model => model.Media.Titulo)</th>
                     <th>@Html.DisplayNameFor(model => model.Ficheiro)</th>
-                    <th>@Html.DisplayNameFor(model => model.Publico)</th>
+                    @if (@User.FindFirst(ClaimTypes.NameIdentifier)?.Value == "admin")
+                    {
+                        <th>@Html.DisplayNameFor(model => model.Publico)</th>
+                    }
                     <th>Ação</th>
                 </tr>
                 </thead>
@@ -45,18 +51,30 @@
                         <td>
                             <img style="max-width: 200px; max-height: 100px; border-radius: 4px;" src="@item.Ficheiro" class="img-thumbnail" />
                         </td>
-                        <td>@item.Publico</td>
+                        @if (@User.FindFirst(ClaimTypes.NameIdentifier)?.Value == "admin")
+                        {
+                            <td>@item.Publico</td>
+                        }
                         <td>
                             <div class="btn-group" role="group">
-                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">
-                                    <i class="bi bi-pencil-square"></i>
-                                </a>
-                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">
-                                    <i class="bi bi-info-circle"></i>
-                                </a>
-                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">
-                                    <i class="bi bi-trash"></i>
-                                </a>
+                                @if (@User.FindFirst(ClaimTypes.NameIdentifier)?.Value == "admin")
+                                {
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">
+                                        <i class="bi bi-info-circle"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">
+                                        <i class="bi bi-info-circle"></i>
+                                    </a>
+                                }
                             </div>
                         </td>
                     </tr>

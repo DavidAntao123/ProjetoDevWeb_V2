@@ -21,5 +21,5 @@ public class Midades
     /// Lista de Medias
     /// </summary>
 
-    public List<Medias> ListaMedias { get; set; } 
+    public ICollection<Medias> ListaMedias { get; set; } = new List<Medias>();
 }

@@ -4,7 +4,6 @@
 
 @{
     ViewData["Title"] = "Autores";
-    Layout = null;
 }
 
 <!DOCTYPE html>
@@ -93,6 +92,7 @@
             cursor: pointer;
             border-radius: 50%;
             transition: all 0.2s;
+            color : white;
         }
 
         .alphabet-letter:hover, .alphabet-letter.active {
@@ -121,11 +121,10 @@
     <div class="container">
         <div class="card" style="background-color: var(--card-bg); border: none;">
             <div class="card-body p-4">
-                <!-- Header with Add Button -->
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-3">
                     <h1 class="text-white mb-0">
                         <i class="bi bi-people-fill me-2"></i>Autores
-                        <small class="text-muted">(@Model.Count() total)</small>
+                        <small class="">(@Model.Count() total)</small>
                     </h1>
 
                     @if (User.FindFirst(ClaimTypes.NameIdentifier)?.Value == "admin")
@@ -136,25 +135,24 @@
                     }
                 </div>
 
-                <!-- Alphabet Filter -->
                 <div class="alphabet-filter mb-3">
                     @foreach (var letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
                     {
                         <div class="alphabet-letter" data-filter="@letter">@letter</div>
                     }
-                    <div class="alphabet-letter" data-filter="all">TODOS</div>
+                    <div class="alphabet-letter" data-filter="all">Todos</div>
                 </div>
-
-                <!-- Search Box -->
+                
+                <!-- BARRA DE PESUISA-->
                 <div class="input-group mb-4">
                     <span class="input-group-text bg-dark text-white border-dark">
                         <i class="bi bi-search"></i>
                     </span>
                     <input type="text" id="authorSearch" class="form-control bg-dark text-white border-dark"
-                           placeholder="Pesquisar autores..." aria-label="Pesquisar">
+                           placeholder="Pesquisar autores..." style="color: white !important" aria-label="Pesquisar">
                 </div>
 
-                <!-- Authors List -->
+                <!-- LISTA DE AUTORES -->
                 <div class="compact-view">
                     <div class="row" id="authorsContainer">
                         @foreach (var author in Model)
@@ -175,19 +173,6 @@
                                            title="Detalhes">
                                             <i class="bi bi-eye"></i>
                                         </a>
-                                        @if (User.FindFirst(ClaimTypes.NameIdentifier)?.Value == "admin")
-                                        {
-                                            <a asp-action="Edit" asp-route-id="@author.Id"
-                                               class="btn btn-sm btn-outline-warning me-1"
-                                               title="Editar">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
-                                            <a asp-action="Delete" asp-route-id="@author.Id"
-                                               class="btn btn-sm btn-outline-danger"
-                                               title="Excluir">
-                                                <i class="bi bi-trash"></i>
-                                            </a>
-                                        }
                                     </div>
                                 </div>
                             </div>
@@ -195,20 +180,7 @@
                     </div>
                 </div>
 
-                <!-- Empty State -->
-                @if (!Model.Any())
-                {
-                    <div class="text-center py-5">
-                        <i class="bi bi-people fs-1 text-muted"></i>
-                        <p class="lead text-muted mt-3">Nenhum autor cadastrado</p>
-                        @if (User.FindFirst(ClaimTypes.NameIdentifier)?.Value == "admin")
-                        {
-                            <a asp-action="Create" class="btn btn-primary mt-3">
-                                <i class="bi bi-plus-lg me-1"></i> Adicionar primeiro autor
-                            </a>
-                        }
-                    </div>
-                }
+          
             </div>
         </div>
     </div>
@@ -218,7 +190,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-        // Alphabet filter
+        // Filtro do alfabeto
+        
         $('.alphabet-letter').click(function() {
             $('.alphabet-letter').removeClass('active');
             $(this).addClass('active');
@@ -232,7 +205,7 @@
             }
         });
 
-        // Search functionality
+        // Barra de pesquisa
         $('#authorSearch').keyup(function() {
             const searchText = $(this).val().toLowerCase();
             $('.author-item').each(function() {
@@ -241,7 +214,7 @@
             });
         });
 
-        // Trigger first letter filter by default
+        // Primeira letra por default
         $('.alphabet-letter[data-filter="all"]').click();
     });
 </script>

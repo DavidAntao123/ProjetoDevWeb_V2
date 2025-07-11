@@ -38,26 +38,31 @@
             <dd class="col-sm-9">
                 @if (!string.IsNullOrEmpty(Model.Ficheiro))
                 {
-                    <img src="@Model.Ficheiro" style="max-width: 400px; max-height: 300px; border-radius: 4px;" class="img-thumbnail" />
+                    <img src="~/@Model.Ficheiro" style="max-width: 400px; max-height: 300px; border-radius: 4px;" class="img-thumbnail" />
                 }
                 else
                 {
                     <span>Não existe imagem</span>
                 }
             </dd>
+            @if (@User.FindFirst(ClaimTypes.NameIdentifier)?.Value == "admin")
+            {
 
-            <dt class="col-sm-3">Público</dt>
-            <dd class="col-sm-9">@Model.Publico</dd>
+                <dt class="col-sm-3">Público</dt>
+                <dd class="col-sm-9">@Model.Publico</dd>
+            }
         </dl>
-
-        <div class="mt-4 d-flex justify-content-end gap-2">
-            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-outline-warning btn-lg">
-                <i class="bi bi-pencil-square me-1"></i> Editar
-            </a>
-            <a asp-action="Delete" asp-route-id="@Model?.Id" class="btn btn-outline-danger btn-lg">
-                <i class="bi bi-trash me-1"></i> Remover
-            </a>
-        </div>
+        @if (@User.FindFirst(ClaimTypes.NameIdentifier)?.Value == "admin")
+        {
+            <div class="mt-4 d-flex justify-content-end gap-2">
+                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-outline-warning btn-lg">
+                    <i class="bi bi-pencil-square me-1"></i> Editar
+                </a>
+                <a asp-action="Delete" asp-route-id="@Model?.Id" class="btn btn-outline-danger btn-lg">
+                    <i class="bi bi-trash me-1"></i> Remover
+                </a>
+            </div>
+        }
     </div>
 </div>
 

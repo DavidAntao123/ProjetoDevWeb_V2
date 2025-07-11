@@ -17,4 +17,8 @@ public class TipoMedias
     /// </summary>
     public string Descricao { get; set; }
     
+    public ICollection<Medias> ListaMedias { get; set; } = new List<Medias>();
+
+    
+    
 }

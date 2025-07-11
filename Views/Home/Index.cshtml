@@ -86,7 +86,6 @@
     </style>
 </head>
 <body>
-<!-- Header Section -->
 <div class="header py-5">
     <div class="container">
         <div class="row align-items-center">
@@ -104,10 +103,9 @@
     <br>    
         @User.FindFirstValue(ClaimsIdentity.DefaultRoleClaimType);
 }   
-<!-- Main Content -->
 <div class="container pb-5">
     @{
-        // Get 3 random media items
+        // 3 Medias Aleatorios
         var randomMedias = Model.Medias
             .OrderBy(m => Guid.NewGuid())
             .Take(5)
@@ -116,7 +114,7 @@
 
     @foreach (var media in randomMedias)
     {
-        // Get 2 random photos for each media
+        // 2 Fotos Aleatorias
         var relatedFotos = media.Fotos
             .OrderBy(f => Guid.NewGuid())
             .Take(2)

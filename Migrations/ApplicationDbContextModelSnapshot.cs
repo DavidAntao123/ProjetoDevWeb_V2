@@ -142,15 +142,15 @@ namespace ProjetoDevWeb_V2.Migrations
                         {
                             Id = "admin",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "922b13d4-21c9-4298-9e60-811c1a3abaa5",
+                            ConcurrencyStamp = "6baa6452-79ef-4ecc-aa1a-9ab372ddc6cf",
                             Email = "admin@mail.pt",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.PT",
                             NormalizedUserName = "ADMIN@MAIL.PT",
-                            PasswordHash = "AQAAAAIAAYagAAAAEO7MeQlaUn/txE7nuPM1Z1YiGSilkPLx0H/qDeB2M/zFeIE4Bm1SM/advn6hl7kSvw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMMZu1uUBikdIL3Sogf0h8iT0VlQ0gM0rHNy5ZWu4BOG3sRHrdo5jLdPQ1bkyceu5w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d03264e3-8432-4a1f-985e-ede8aa19f42e",
+                            SecurityStamp = "3eb62212-ba95-42ff-9f6e-a324d2240c06",
                             TwoFactorEnabled = false,
                             UserName = "admin@mail.pt"
                         });
@@ -520,13 +520,13 @@ namespace ProjetoDevWeb_V2.Migrations
             modelBuilder.Entity("ProjetoDevWeb_V2.Models.Medias", b =>
                 {
                     b.HasOne("ProjetoDevWeb_V2.Models.Autores", "Autor")
-                        .WithMany()
+                        .WithMany("ListaMedias")
                         .HasForeignKey("AutorFk")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ProjetoDevWeb_V2.Models.Generos", "Genero")
-                        .WithMany()
+                        .WithMany("ListaMedias")
                         .HasForeignKey("GeneroFk")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -538,7 +538,7 @@ namespace ProjetoDevWeb_V2.Migrations
                         .IsRequired();
 
                     b.HasOne("ProjetoDevWeb_V2.Models.TipoMedias", "TipoMedia")
-                        .WithMany()
+                        .WithMany("ListaMedias")
                         .HasForeignKey("TipoMediaFk")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -563,12 +563,27 @@ namespace ProjetoDevWeb_V2.Migrations
                     b.Navigation("Media");
                 });
 
+            modelBuilder.Entity("ProjetoDevWeb_V2.Models.Autores", b =>
+                {
+                    b.Navigation("ListaMedias");
+                });
+
+            modelBuilder.Entity("ProjetoDevWeb_V2.Models.Generos", b =>
+                {
+                    b.Navigation("ListaMedias");
+                });
+
             modelBuilder.Entity("ProjetoDevWeb_V2.Models.Medias", b =>
                 {
                     b.Navigation("Fotos");
                 });
 
             modelBuilder.Entity("ProjetoDevWeb_V2.Models.Midades", b =>
+                {
+                    b.Navigation("ListaMedias");
+                });
+
+            modelBuilder.Entity("ProjetoDevWeb_V2.Models.TipoMedias", b =>
                 {
                     b.Navigation("ListaMedias");
                 });

@@ -19,5 +19,7 @@ public class Generos
     /// Descricao do genero
     /// </summary>
     public string Descricao { get; set; }
+    
+    public ICollection<Medias> ListaMedias { get; set; } = new List<Medias>();
 
 }

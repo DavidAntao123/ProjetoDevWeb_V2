@@ -50,15 +50,17 @@ namespace ProjetoDevWeb_V2.Controllers
 
         // GET: Musicas/Create
         
-        [Authorize]
+        //[Authorize]
         public IActionResult Create()
         {
+            /*
             var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             if (Userrole != "admin")
             {
                 return RedirectToAction("Index","Home"); 
             }
+            */
             ViewData["MediaFK"] = new SelectList(_context.Medias, "Id", "Titulo");
             return View();
         }
@@ -81,15 +83,17 @@ namespace ProjetoDevWeb_V2.Controllers
         }
 
         // GET: Musicas/Edit/5
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
+            /*
             var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             if (Userrole != "admin")
             {
                 return RedirectToAction("Index","Home"); 
             }
+            */
             if (id == null)
             {
                 return NotFound();
@@ -141,15 +145,17 @@ namespace ProjetoDevWeb_V2.Controllers
         }
 
         // GET: Musicas/Delete/5
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
+            /*
             var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             if (Userrole != "admin")
             {
                 return RedirectToAction("Index","Home"); 
             }
+            */
             if (id == null)
             {
                 return NotFound();
