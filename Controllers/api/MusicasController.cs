@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,66 +12,62 @@ using Microsoft.AspNetCore.Authorization;
 namespace ProjetoDevWeb_V2.Controllers.api
 {
     /// <summary>
-    /// Controler da API dos Autores
+    /// Controler da API das Musicas
     /// GET PUT POST DELETE
     /// Para utilizar , é necessário de estar autenticados na API
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class AutoresController : ControllerBase
+    public class MusicasController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public AutoresController(ApplicationDbContext context)
+        public MusicasController(ApplicationDbContext context)
         {
             _context = context;
         }
-
         /// <summary>
-        /// Get de todos os Autores
+        /// Get de todos as Musicas
         /// </summary>
-        // GET: api/Autores
+        // GET: api/Musicas
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Autores>>> GetAutores()
+        public async Task<ActionResult<IEnumerable<Musicas>>> GetMusicas()
         {
-            return await _context.Autores.ToListAsync();
+            return await _context.Musicas.ToListAsync();
         }
-
         /// <summary>
-        /// Get de um autor em especifico por ID
+        /// Get de uma musica em especifico por ID
         /// </summary>
-        // GET: api/Autores/5
+        // GET: api/Musicas/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Autores>> GetAutores(int id)
+        public async Task<ActionResult<Musicas>> GetMusicas(int id)
         {
-            var autores = await _context.Autores
+            var Musicas = await _context.Musicas
                 .FirstOrDefaultAsync(c => c.Id == id);
                 
 
-            if (autores == null)
+            if (Musicas == null)
             {
-                return NotFound("O id fornecido não tem Autor correspondente.");
+                return NotFound("O id fornecido não tem Música correspondente.");
             }
 
-            return autores;
+            return Musicas;
         }
-
         /// <summary>
-        /// Atualiza um autor em especifico
+        /// Atualiza uma musica em especifico
         /// </summary>
-        // PUT: api/Autores/5
+        // PUT: api/Musicas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> PutFotografias(int id, Autores autores)
+        public async Task<IActionResult> PutMusicas(int id, Musicas Musicas)
         {
-            if (id != autores.Id)
+            if (id != Musicas.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(autores).State = EntityState.Modified;
+            _context.Entry(Musicas).State = EntityState.Modified;
 
             try
             {
@@ -80,7 +75,7 @@ namespace ProjetoDevWeb_V2.Controllers.api
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AutoresExists(id))
+                if (!MusicasExists(id))
                 {
                     return NotFound();
                 }
@@ -92,48 +87,46 @@ namespace ProjetoDevWeb_V2.Controllers.api
 
             return NoContent();
         }
-
         /// <summary>
-        /// Adiciona um autor 
+        /// Adiciona uma musica 
         /// </summary>
-        // POST: api/Autores
+        // POST: api/Musicas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Authorize]
         // [Route("create")]
-        public async Task<ActionResult<Autores>> PostAutores(Autores autores)
+        public async Task<ActionResult<Fotografias>> PostMusicas(Musicas Musicas)
         {
-            _context.Autores.Add(autores);
+            _context.Musicas.Add(Musicas);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAutores", new { id = autores.Id }, autores);
+            return CreatedAtAction("GetMusicas", new { id = Musicas.Id }, Musicas);
         }
-
         /// <summary>
-        /// Apaga um autor em especifico
+        /// Apaga uma musica em especifico
         /// </summary>
-        // DELETE: api/Autores/5
+        // DELETE: api/Musicas/5
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<IActionResult> DeleteAutores(int id)
+        public async Task<IActionResult> DeleteMusicas(int id)
         {
-            var autores = await _context.Autores.FindAsync(id);
-            if (autores == null)
+            var Musicas = await _context.Musicas.FindAsync(id);
+            if (Musicas == null)
             {
                 return NotFound();
             }
 
-            _context.Autores.Remove(autores);
+            _context.Musicas.Remove(Musicas);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
         /// <summary>
-        /// Função para verificar se um autor existe
+        /// Função para verificar se uma musica existe
         /// </summary>
-        private bool AutoresExists(int id)
+        private bool MusicasExists(int id)
         {
-            return _context.Autores.Any(e => e.Id == id);
+            return _context.Musicas.Any(e => e.Id == id);
         }
     }
 }

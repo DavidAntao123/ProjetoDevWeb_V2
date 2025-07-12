@@ -38,7 +38,7 @@
             <dd class="col-sm-9">
                 @if (!string.IsNullOrEmpty(Model.Ficheiro))
                 {
-                    <img src="@Model.Ficheiro" style="max-width: 300px; max-height: 200px; border-radius: 4px;" class="img-thumbnail" />
+                    <img src="~/@Model.Ficheiro" style="max-width: 300px; max-height: 200px; border-radius: 4px;" class="img-thumbnail" />
                 }
                 else
                 {
@@ -50,6 +50,19 @@
             <dd class="col-sm-9">@Model.Publico</dd>
         </dl>
 
+        @if (ViewBag.Aviso != null)
+        {
+            <div class="alert alert-warning">
+                @ViewBag.Aviso
+                <ul>
+                    @foreach (var mediaNome in ViewBag.MediaNomes)
+                    {
+                        <li>@mediaNome</li>
+                    }
+                </ul>
+                <strong>Apagar esta foto irá remover estes medias.</strong>
+            </div>
+        }
         <form asp-action="Delete" class="mt-4">
             <input type="hidden" asp-for="Id" />
             <div class="d-flex justify-content-end gap-3">

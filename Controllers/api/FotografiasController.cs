@@ -11,6 +11,11 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ProjetoDevWeb_V2.Controllers.api
 {
+    /// <summary>
+    /// Controler da API das Fotografias
+    /// GET PUT POST DELETE
+    /// Para fotografia , é necessário de estar autenticados na API
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class FotografiasController : ControllerBase
@@ -22,13 +27,18 @@ namespace ProjetoDevWeb_V2.Controllers.api
             _context = context;
         }
 
+        /// <summary>
+        /// Get de todos as Fotos
+        /// </summary>
         // GET: api/Fotografias
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Fotografias>>> GetFotografias()
         {
             return await _context.Fotografias.ToListAsync();
         }
-
+        /// <summary>
+        /// Get de uma Foto em especifico por ID
+        /// </summary>
         // GET: api/Fotografias/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Fotografias>> GetFotografias(int id)
@@ -44,7 +54,9 @@ namespace ProjetoDevWeb_V2.Controllers.api
 
             return fotos;
         }
-
+        /// <summary>
+        /// Atualiza uma Foto em especifico
+        /// </summary>
         // PUT: api/Fotografias/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -76,7 +88,9 @@ namespace ProjetoDevWeb_V2.Controllers.api
 
             return NoContent();
         }
-
+        /// <summary>
+        /// Adiciona um autor 
+        /// </summary>
         // POST: api/Fotografias
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -89,7 +103,9 @@ namespace ProjetoDevWeb_V2.Controllers.api
 
             return CreatedAtAction("GetFotografias", new { id = fotos.Id }, fotos);
         }
-
+        /// <summary>
+        /// Apaga uma foto em especifico
+        /// </summary>
         // DELETE: api/Fotografias/5
         [HttpDelete("{id}")]
         [Authorize]
@@ -106,7 +122,9 @@ namespace ProjetoDevWeb_V2.Controllers.api
 
             return NoContent();
         }
-
+        /// <summary>
+        /// Função para verificar se uma foto existe
+        /// </summary>
         private bool FotografiasExists(int id)
         {
             return _context.Fotografias.Any(e => e.Id == id);

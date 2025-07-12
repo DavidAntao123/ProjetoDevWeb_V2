@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,66 +12,62 @@ using Microsoft.AspNetCore.Authorization;
 namespace ProjetoDevWeb_V2.Controllers.api
 {
     /// <summary>
-    /// Controler da API dos Autores
+    /// Controler da API das Midades
     /// GET PUT POST DELETE
     /// Para utilizar , é necessário de estar autenticados na API
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class AutoresController : ControllerBase
+    public class MidadesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public AutoresController(ApplicationDbContext context)
+        public MidadesController(ApplicationDbContext context)
         {
             _context = context;
         }
-
         /// <summary>
-        /// Get de todos os Autores
+        /// Get de todos as Midades
         /// </summary>
-        // GET: api/Autores
+        // GET: api/Midades
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Autores>>> GetAutores()
+        public async Task<ActionResult<IEnumerable<Midades>>> GetMidades()
         {
-            return await _context.Autores.ToListAsync();
+            return await _context.Midades.ToListAsync();
         }
-
         /// <summary>
-        /// Get de um autor em especifico por ID
+        /// Get de uma Midade em especifico por ID
         /// </summary>
-        // GET: api/Autores/5
+        // GET: api/Midades/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Autores>> GetAutores(int id)
+        public async Task<ActionResult<Midades>> GetMidades(int id)
         {
-            var autores = await _context.Autores
+            var Midades = await _context.Midades
                 .FirstOrDefaultAsync(c => c.Id == id);
                 
 
-            if (autores == null)
+            if (Midades == null)
             {
-                return NotFound("O id fornecido não tem Autor correspondente.");
+                return NotFound("O id fornecido não tem Midade correspondente.");
             }
 
-            return autores;
+            return Midades;
         }
-
         /// <summary>
-        /// Atualiza um autor em especifico
+        /// Atualiza uma Midade em especifico
         /// </summary>
-        // PUT: api/Autores/5
+        // PUT: api/Midades/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> PutFotografias(int id, Autores autores)
+        public async Task<IActionResult> PutMidades(int id, Midades Midades)
         {
-            if (id != autores.Id)
+            if (id != Midades.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(autores).State = EntityState.Modified;
+            _context.Entry(Midades).State = EntityState.Modified;
 
             try
             {
@@ -80,7 +75,7 @@ namespace ProjetoDevWeb_V2.Controllers.api
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AutoresExists(id))
+                if (!MidadesExists(id))
                 {
                     return NotFound();
                 }
@@ -92,48 +87,46 @@ namespace ProjetoDevWeb_V2.Controllers.api
 
             return NoContent();
         }
-
         /// <summary>
-        /// Adiciona um autor 
+        /// Adiciona uma Midade 
         /// </summary>
-        // POST: api/Autores
+        // POST: api/Midades
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Authorize]
         // [Route("create")]
-        public async Task<ActionResult<Autores>> PostAutores(Autores autores)
+        public async Task<ActionResult<Fotografias>> PostMidades(Midades Midades)
         {
-            _context.Autores.Add(autores);
+            _context.Midades.Add(Midades);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAutores", new { id = autores.Id }, autores);
+            return CreatedAtAction("GetMidades", new { id = Midades.Id }, Midades);
         }
-
         /// <summary>
-        /// Apaga um autor em especifico
+        /// Apaga uma Midade em especifico
         /// </summary>
-        // DELETE: api/Autores/5
+        // DELETE: api/Midades/5
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<IActionResult> DeleteAutores(int id)
+        public async Task<IActionResult> DeleteMidades(int id)
         {
-            var autores = await _context.Autores.FindAsync(id);
-            if (autores == null)
+            var Midades = await _context.Midades.FindAsync(id);
+            if (Midades == null)
             {
                 return NotFound();
             }
 
-            _context.Autores.Remove(autores);
+            _context.Midades.Remove(Midades);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
         /// <summary>
-        /// Função para verificar se um autor existe
+        /// Função para verificar se uma Midade existe
         /// </summary>
-        private bool AutoresExists(int id)
+        private bool MidadesExists(int id)
         {
-            return _context.Autores.Any(e => e.Id == id);
+            return _context.Midades.Any(e => e.Id == id);
         }
     }
 }

@@ -126,6 +126,8 @@ namespace ProjetoDevWeb_V2.Controllers
                 .ToListAsync();
 
             var fotografias = await _context.Fotografias.ToListAsync();
+            
+            var generos = await _context.Generos.ToListAsync();
 
             var userLikes = await _context.Likes
                 .Where(l => l.UserFK == userId)
@@ -147,7 +149,9 @@ namespace ProjetoDevWeb_V2.Controllers
                 
                 LikesList = userLikes,
                 
-                LikeCounts  = likeCount
+                LikeCounts  = likeCount,
+                
+                Generos = generos
                 
             };
 

@@ -164,6 +164,17 @@ namespace ProjetoDevWeb_V2.Controllers
             {
                 return NotFound();
             }
+            
+            var mediaNomes = await _context.Medias
+                .Where(m => m.TipoMediaFk == id)
+                .Select(m => m.Titulo) 
+                .ToListAsync();
+
+            if (mediaNomes.Any())
+            {
+                ViewBag.Aviso = "Aviso : Este Tipo de Media  está a ser utilizada nestes Medias :";
+                ViewBag.MediaNomes = mediaNomes; 
+            }
 
             return View(tipoMedias);
         }

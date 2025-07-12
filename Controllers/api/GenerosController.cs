@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,66 +12,62 @@ using Microsoft.AspNetCore.Authorization;
 namespace ProjetoDevWeb_V2.Controllers.api
 {
     /// <summary>
-    /// Controler da API dos Autores
+    /// Controler da API dos Generos
     /// GET PUT POST DELETE
     /// Para utilizar , é necessário de estar autenticados na API
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class AutoresController : ControllerBase
+    public class GenerosController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public AutoresController(ApplicationDbContext context)
+        public GenerosController(ApplicationDbContext context)
         {
             _context = context;
         }
-
         /// <summary>
-        /// Get de todos os Autores
+        /// Get de todos os generos
         /// </summary>
-        // GET: api/Autores
+        // GET: api/Generos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Autores>>> GetAutores()
+        public async Task<ActionResult<IEnumerable<Generos>>> GetGeneros()
         {
-            return await _context.Autores.ToListAsync();
+            return await _context.Generos.ToListAsync();
         }
-
         /// <summary>
-        /// Get de um autor em especifico por ID
+        /// Get de um genero em especifico por ID
         /// </summary>
-        // GET: api/Autores/5
+        // GET: api/Generos/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Autores>> GetAutores(int id)
+        public async Task<ActionResult<Generos>> GetGeneros(int id)
         {
-            var autores = await _context.Autores
+            var generos = await _context.Generos
                 .FirstOrDefaultAsync(c => c.Id == id);
                 
 
-            if (autores == null)
+            if (generos == null)
             {
-                return NotFound("O id fornecido não tem Autor correspondente.");
+                return NotFound("O id fornecido não tem Genero correspondente.");
             }
 
-            return autores;
+            return generos;
         }
-
         /// <summary>
-        /// Atualiza um autor em especifico
+        /// Atualiza um genero em especifico
         /// </summary>
-        // PUT: api/Autores/5
+        // PUT: api/Generos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> PutFotografias(int id, Autores autores)
+        public async Task<IActionResult> PutGeneros(int id, Generos generos)
         {
-            if (id != autores.Id)
+            if (id != generos.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(autores).State = EntityState.Modified;
+            _context.Entry(generos).State = EntityState.Modified;
 
             try
             {
@@ -80,7 +75,7 @@ namespace ProjetoDevWeb_V2.Controllers.api
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AutoresExists(id))
+                if (!GenerosExists(id))
                 {
                     return NotFound();
                 }
@@ -92,48 +87,46 @@ namespace ProjetoDevWeb_V2.Controllers.api
 
             return NoContent();
         }
-
         /// <summary>
-        /// Adiciona um autor 
+        /// Adiciona um genero 
         /// </summary>
-        // POST: api/Autores
+        // POST: api/Generos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Authorize]
         // [Route("create")]
-        public async Task<ActionResult<Autores>> PostAutores(Autores autores)
+        public async Task<ActionResult<Fotografias>> PostGeneros(Generos generos)
         {
-            _context.Autores.Add(autores);
+            _context.Generos.Add(generos);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAutores", new { id = autores.Id }, autores);
+            return CreatedAtAction("GetGeneros", new { id = generos.Id }, generos);
         }
-
         /// <summary>
-        /// Apaga um autor em especifico
+        /// Apaga um genero em especifico
         /// </summary>
-        // DELETE: api/Autores/5
+        // DELETE: api/Generos/5
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<IActionResult> DeleteAutores(int id)
+        public async Task<IActionResult> DeleteGeneros(int id)
         {
-            var autores = await _context.Autores.FindAsync(id);
-            if (autores == null)
+            var generos = await _context.Generos.FindAsync(id);
+            if (generos == null)
             {
                 return NotFound();
             }
 
-            _context.Autores.Remove(autores);
+            _context.Generos.Remove(generos);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
         /// <summary>
-        /// Função para verificar se um autor existe
+        /// Função para verificar se um genero existe
         /// </summary>
-        private bool AutoresExists(int id)
+        private bool GenerosExists(int id)
         {
-            return _context.Autores.Any(e => e.Id == id);
+            return _context.Generos.Any(e => e.Id == id);
         }
     }
 }

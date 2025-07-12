@@ -164,6 +164,17 @@ namespace ProjetoDevWeb_V2.Controllers
             {
                 return NotFound();
             }
+            
+            var mediaNomes = await _context.Medias
+                .Where(m => m.MidadeFk == id)
+                .Select(m => m.Titulo) 
+                .ToListAsync();
+
+            if (mediaNomes.Any())
+            {
+                ViewBag.Aviso = "Aviso : Esta Idade Minima (Midade) está a ser utilizado nestes Medias :";
+                ViewBag.MediaNomes = mediaNomes; 
+            }
 
             return View(midades);
         }

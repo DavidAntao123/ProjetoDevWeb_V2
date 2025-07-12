@@ -145,17 +145,17 @@ namespace ProjetoDevWeb_V2.Controllers
         }
 
         // GET: Musicas/Delete/5
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
-            /*
+           
             var Userrole = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             if (Userrole != "admin")
             {
                 return RedirectToAction("Index","Home"); 
             }
-            */
+          
             if (id == null)
             {
                 return NotFound();
@@ -168,6 +168,16 @@ namespace ProjetoDevWeb_V2.Controllers
             {
                 return NotFound();
             }
+            var mediaNomes = await _context.Musicas
+                .Where(mm => mm.Id == id)
+                .Select(mm => mm.Media.Titulo)   
+                .ToListAsync();
+
+                if (mediaNomes.Any())
+                {
+                    ViewBag.Aviso = "Aviso : Esta Musica está a ser utilizada nestes Medias :";
+                    ViewBag.MediaNomes = mediaNomes; 
+                }
 
             return View(musicas);
         }

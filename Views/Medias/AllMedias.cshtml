@@ -72,6 +72,7 @@
         <h1 class="display-4 text-center">Todos os Medias !</h1>
     </div>
     <p>
+        <!---
         <a class="btn btn-primary filter-btn" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false">
             Ação
         </a>
@@ -89,6 +90,18 @@
         <a class="btn btn-primary filter-btn" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false">
             Documentário
         </a>
+        --->
+        @foreach (var generos in Model.Generos)
+        {
+            <a id="@generos.Id"
+               class="btn btn-primary filter-btn"
+               data-toggle="collapse"
+               href="#collapseExample"
+               role="button"
+               aria-expanded="false">
+                @generos.Nome
+            </a>
+        }
 
 
     </p>
@@ -192,7 +205,7 @@
             collapseDiv.className = 'collapse';
             
             //div com o index do genero selecionado
-            var selectedText =   $(this).index()+1;
+            var selectedText =   $(this).attr("id");
             $("#selectedFilter").text(selectedText);
 
             //variavel com a class dos divs dos medias

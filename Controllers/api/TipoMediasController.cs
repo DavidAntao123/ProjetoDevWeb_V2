@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,66 +12,62 @@ using Microsoft.AspNetCore.Authorization;
 namespace ProjetoDevWeb_V2.Controllers.api
 {
     /// <summary>
-    /// Controler da API dos Autores
+    /// Controler da API dos Tipos de Medias
     /// GET PUT POST DELETE
     /// Para utilizar , é necessário de estar autenticados na API
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class AutoresController : ControllerBase
+    public class TipoMediasController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public AutoresController(ApplicationDbContext context)
+        public TipoMediasController(ApplicationDbContext context)
         {
             _context = context;
         }
-
         /// <summary>
-        /// Get de todos os Autores
+        /// Get de todos os Tipos de medias
         /// </summary>
-        // GET: api/Autores
+        // GET: api/TipoMedias
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Autores>>> GetAutores()
+        public async Task<ActionResult<IEnumerable<TipoMedias>>> GetTipoMedias()
         {
-            return await _context.Autores.ToListAsync();
+            return await _context.TipoMedias.ToListAsync();
         }
-
         /// <summary>
-        /// Get de um autor em especifico por ID
+        /// Get de um tipo de media em especifico por ID
         /// </summary>
-        // GET: api/Autores/5
+        // GET: api/TipoMedias/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Autores>> GetAutores(int id)
+        public async Task<ActionResult<TipoMedias>> GetTipoMedias(int id)
         {
-            var autores = await _context.Autores
+            var TipoMedias = await _context.TipoMedias
                 .FirstOrDefaultAsync(c => c.Id == id);
                 
 
-            if (autores == null)
+            if (TipoMedias == null)
             {
-                return NotFound("O id fornecido não tem Autor correspondente.");
+                return NotFound("O id fornecido não tem Tipo de Media correspondente.");
             }
 
-            return autores;
+            return TipoMedias;
         }
-
         /// <summary>
-        /// Atualiza um autor em especifico
+        /// Atualiza um Tipo de media em especifico
         /// </summary>
-        // PUT: api/Autores/5
+        // PUT: api/TipoMedias/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> PutFotografias(int id, Autores autores)
+        public async Task<IActionResult> PutTipoMedias(int id, TipoMedias TipoMedias)
         {
-            if (id != autores.Id)
+            if (id != TipoMedias.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(autores).State = EntityState.Modified;
+            _context.Entry(TipoMedias).State = EntityState.Modified;
 
             try
             {
@@ -80,7 +75,7 @@ namespace ProjetoDevWeb_V2.Controllers.api
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AutoresExists(id))
+                if (!TipoMediasExists(id))
                 {
                     return NotFound();
                 }
@@ -92,38 +87,36 @@ namespace ProjetoDevWeb_V2.Controllers.api
 
             return NoContent();
         }
-
         /// <summary>
-        /// Adiciona um autor 
+        /// Adiciona um tipo de media 
         /// </summary>
-        // POST: api/Autores
+        // POST: api/TipoMedias
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Authorize]
         // [Route("create")]
-        public async Task<ActionResult<Autores>> PostAutores(Autores autores)
+        public async Task<ActionResult<Fotografias>> PostTipoMedias(TipoMedias TipoMedias)
         {
-            _context.Autores.Add(autores);
+            _context.TipoMedias.Add(TipoMedias);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAutores", new { id = autores.Id }, autores);
+            return CreatedAtAction("GetTipoMedias", new { id = TipoMedias.Id }, TipoMedias);
         }
-
         /// <summary>
-        /// Apaga um autor em especifico
+        /// Apaga um tipo de media em especifico
         /// </summary>
-        // DELETE: api/Autores/5
+        // DELETE: api/TipoMedias/5
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<IActionResult> DeleteAutores(int id)
+        public async Task<IActionResult> DeleteTipoMedias(int id)
         {
-            var autores = await _context.Autores.FindAsync(id);
-            if (autores == null)
+            var TipoMedias = await _context.TipoMedias.FindAsync(id);
+            if (TipoMedias == null)
             {
                 return NotFound();
             }
 
-            _context.Autores.Remove(autores);
+            _context.TipoMedias.Remove(TipoMedias);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -131,9 +124,9 @@ namespace ProjetoDevWeb_V2.Controllers.api
         /// <summary>
         /// Função para verificar se um autor existe
         /// </summary>
-        private bool AutoresExists(int id)
+        private bool TipoMediasExists(int id)
         {
-            return _context.Autores.Any(e => e.Id == id);
+            return _context.TipoMedias.Any(e => e.Id == id);
         }
     }
 }

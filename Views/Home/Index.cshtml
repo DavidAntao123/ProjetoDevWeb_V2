@@ -56,6 +56,11 @@
             margin-bottom: 0.5rem;
         }
 
+        .photo-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* or 'cover' if you want to fill the space */
+        }
         .photo-card {
             border-radius: 10px;
             overflow: hidden;
@@ -98,11 +103,7 @@
     </div>
 </div>
 
-@{
-    
-    <br>    
-        @User.FindFirstValue(ClaimsIdentity.DefaultRoleClaimType);
-}   
+
 <div class="container pb-5">
     @{
         // 3 Medias Aleatorios
@@ -138,7 +139,7 @@
                         <div class="photo-card shadow-sm">
                             <img src="~/@foto.Ficheiro"
                                  alt="@foto.Descricao"
-                                 class="photo-img">
+                                 class="photo-img img-fluid" style="max-height: 300px;">
                             <div class="photo-description">
                                 <div class="d-flex justify-content-between align-items-center mt-2">
                        

@@ -31,6 +31,20 @@
             <dt class="col-sm-3">Nome</dt>
             <dd class="col-sm-9">@Model.Nome</dd>
         </dl>
+        
+        @if (ViewBag.Aviso != null)
+        {
+            <div class="alert alert-warning">
+                @ViewBag.Aviso
+                <ul>
+                    @foreach (var mediaNome in ViewBag.MediaNomes)
+                    {
+                        <li>@mediaNome</li>
+                    }
+                </ul>
+                <strong>Apagar este autor irá remover estes medias.</strong>
+            </div>
+        }
 
         <form asp-action="Delete" class="mt-4">
             <input type="hidden" asp-for="Id" />

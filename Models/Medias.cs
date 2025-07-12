@@ -68,5 +68,7 @@ public class Medias
     
     public List<Fotografias> Fotos { get; set; }
     
+    public List<Musicas> Musicas { get; set; }
+    
 }
 
